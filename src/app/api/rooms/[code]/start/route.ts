@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/server";
 import { withErrorHandling } from "@/lib/api-route";
 import { rpcError } from "@/lib/game";
-import { filterPool, pickLocation } from "@/lib/locations";
+import { filterPool } from "@/lib/locations";
 import { filterLabel, mapSizeFor } from "@/lib/regions";
+import { planLocations } from "@/lib/selection";
 
 export const POST = withErrorHandling(async (request: Request, { params }: { params: Promise<{ code: string }> }) => {
   const { code } = await params;
@@ -26,18 +27,22 @@ export const POST = withErrorHandling(async (request: Request, { params }: { par
       { status: 400 }
     );
   }
-  const location = pickLocation(filter, new Set())!;
+
+  // Every round's location is planned now, for variety across the game.
+  const locations = planLocations(filter, room.round_count).map((l) => ({
+    lat: l.lat,
+    lng: l.lng,
+    panoId: l.panoId,
+    country: l.country,
+  }));
 
   const { data, error } = await supabase.rpc("start_game", {
     p_room_code: roomCode,
     p_player_id: playerId,
     p_token: token,
-    p_lat: location.lat,
-    p_lng: location.lng,
-    p_pano_id: location.panoId,
+    p_locations: locations,
     p_location_filter: filter,
     p_map_size_m: mapSizeFor(filter),
-    p_country: location.country,
   });
   if (error) throw error;
   return rpcError(data) ?? NextResponse.json({ gameId: data.gameId });
