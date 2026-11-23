@@ -3,10 +3,15 @@ import { supabaseAdmin } from "@/lib/supabase/server";
 import { withErrorHandling } from "@/lib/api-route";
 import { GUESS_GRACE_MS, GUESS_LOCK_SECONDS, rpcError } from "@/lib/game";
 import { buildSnapshot } from "@/lib/snapshot";
+import { locateGuess } from "@/lib/borders";
 
 // One database round trip for the guess itself (submit_guess does auth,
 // scoring, the 10-second lock and ending the round), then the fresh
 // snapshot so the client can show results without waiting on Realtime.
+//
+// For country-first scoring the route works out which country the guess is
+// in and its distance to every country's border; submit_guess picks the
+// answer's entry, so the answer never leaves the database.
 export const POST = withErrorHandling(async (request: Request, { params }: { params: Promise<{ code: string }> }) => {
   const { code } = await params;
   const roomCode = code.toUpperCase();
@@ -15,6 +20,7 @@ export const POST = withErrorHandling(async (request: Request, { params }: { par
     return NextResponse.json({ error: "Invalid guess" }, { status: 400 });
   }
 
+  const located = locateGuess(lat, lng);
   const supabase = supabaseAdmin();
   const { data, error } = await supabase.rpc("submit_guess", {
     p_room_code: roomCode,
@@ -24,6 +30,8 @@ export const POST = withErrorHandling(async (request: Request, { params }: { par
     p_lng: lng,
     p_grace_ms: GUESS_GRACE_MS,
     p_lock_seconds: GUESS_LOCK_SECONDS,
+    p_guess_country: located.country,
+    p_country_distances: located.distances,
   });
   if (error) throw error;
   const failure = rpcError(data);

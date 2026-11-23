@@ -7,11 +7,13 @@ import { useIdentity, type Identity } from "@/lib/identity";
 import { subscribeGame, subscribePlayersTable, subscribeRoomRow, upsertPlayer } from "@/lib/realtime/tables";
 import { useHostFailover } from "@/lib/realtime/presence";
 import { PLAYER_COLORS } from "@/lib/google-maps";
-import { formatDistance } from "@/lib/rules";
+import { formatDistance, SCORING_MODE_LABELS } from "@/lib/rules";
+import { countryName } from "@/lib/country-names";
 import { MAX_ROUND_SCORE, type LatLng } from "@/lib/scoring";
 import { StreetView } from "@/components/StreetView";
 import { GameMap, type MapRound } from "@/components/GameMap";
-import type { GameSnapshot, Player, Room, RoundSnapshot } from "@/lib/types";
+import type { GameSnapshot, Guess, Player, Room, RoundSnapshot, ScoringMode } from "@/lib/types";
+import { filterLabel, regionFor } from "@/lib/regions";
 
 interface Snapshot {
   room: Room;
@@ -238,6 +240,21 @@ function GameScreen({
   );
   const guessLocked = Boolean(myGuess) || (lockedRoundId !== null && lockedRoundId === roundId);
 
+  // Space locks in a placed pin, like GeoGuessr.
+  const canGuess = round?.status === "active" && pin !== null && !guessLocked;
+  useEffect(() => {
+    if (!canGuess || !round || !pin) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.code !== "Space" || e.repeat) return;
+      const target = e.target as HTMLElement | null;
+      if (target?.closest("input, textarea, select, [contenteditable]")) return;
+      e.preventDefault();
+      submitGuess(pin, round.id);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [canGuess, round, pin, submitGuess]);
+
   // When time runs out: submit a placed-but-unconfirmed pin, then ask the
   // server to end the round, retrying until it does.
   const expiredRoundRef = useRef<string | null>(null);
@@ -320,6 +337,8 @@ function GameScreen({
       {phase === "guessing" && (
         <>
           <div className="absolute left-3 top-3 z-10 flex gap-2 text-white">
+            <HudBox label="Map" value={filterLabel(game.locationFilter)} />
+            {game.scoringMode === "country" && <HudBox label="Scoring" value={SCORING_MODE_LABELS.country} />}
             <HudBox label="Round" value={`${game.currentRound} / ${game.roundCount}`} />
             <HudBox label="Score" value={myTotal.toLocaleString()} />
             <HudBox label="Time" value={formatClock(msLeft)} urgent={msLeft <= 10_000} />
@@ -361,7 +380,13 @@ function GameScreen({
         }
       >
         <div className="relative min-h-0 flex-1 overflow-hidden rounded-lg h-full">
-          <GameMap mode={phase === "guessing" ? "guess" : "results"} pin={pin} onPick={guessLocked ? ignorePick : setPin} results={roundResults} />
+          <GameMap
+            mode={phase === "guessing" ? "guess" : "results"}
+            pin={pin}
+            onPick={guessLocked ? ignorePick : setPin}
+            results={roundResults}
+            startBounds={regionFor(game.locationFilter)?.bounds ?? null}
+          />
           {phase === "guessing" && (
             <button
               onClick={() => setMapExpanded((e) => !e)}
@@ -382,7 +407,7 @@ function GameScreen({
               : guessLocked
                 ? "Locking in…"
                 : pin
-                  ? "Guess"
+                  ? "Guess (Space)"
                   : "Place your pin on the map"}
           </button>
         )}
@@ -394,9 +419,14 @@ function GameScreen({
           <h2 className="text-xl font-bold">
             Round {round.roundNumber} of {game.roundCount}
           </h2>
+          {round.answer?.country && (
+            <p>
+              The location was in <strong>{countryName(round.answer.country)}</strong>.
+            </p>
+          )}
           <p className="text-zinc-500">
             {myGuess
-              ? `Your guess was ${formatDistance(myGuess.distanceM)} away: ${myGuess.score.toLocaleString()} points`
+              ? `${guessSummary(myGuess, game.scoringMode, round.answer?.country ?? null)}: ${myGuess.score.toLocaleString()} points`
               : "You didn't guess in time: 0 points"}
           </p>
           <ScoreBar score={myGuess?.score ?? 0} />
@@ -404,7 +434,7 @@ function GameScreen({
             <thead className="text-left text-zinc-500">
               <tr>
                 <th className="py-1">Player</th>
-                <th>Distance</th>
+                <th>{game.scoringMode === "country" ? "Guess" : "Distance"}</th>
                 <th className="text-right">Round</th>
                 <th className="text-right">Total</th>
               </tr>
@@ -417,7 +447,7 @@ function GameScreen({
                     <td className="py-1">
                       <PlayerName name={nameFor(p.playerId)} color={colorFor(p.playerId)} />
                     </td>
-                    <td>{guess ? formatDistance(guess.distanceM) : "No guess"}</td>
+                    <td>{guess ? guessCell(guess, game.scoringMode) : "No guess"}</td>
                     <td className="text-right">{(guess?.score ?? 0).toLocaleString()}</td>
                     <td className="text-right font-semibold">{p.totalScore.toLocaleString()}</td>
                   </tr>
@@ -504,6 +534,24 @@ function GameScreen({
 }
 
 const ignorePick = () => {};
+
+// The line under "The location was in…" for your own guess.
+function guessSummary(guess: Guess, mode: ScoringMode, answerCountry: string | null) {
+  if (mode === "country" && answerCountry && guess.countryDistanceM !== null) {
+    if (guess.countryDistanceM === 0) return "Right country";
+    return `You guessed ${countryName(guess.guessCountry)}, ${formatDistance(guess.countryDistanceM)} from ${countryName(answerCountry)}`;
+  }
+  return `Your guess was ${formatDistance(guess.distanceM)} away`;
+}
+
+// A guess in the round results table.
+function guessCell(guess: Guess, mode: ScoringMode) {
+  if (mode === "country" && guess.countryDistanceM !== null) {
+    if (guess.countryDistanceM === 0) return `✓ ${countryName(guess.guessCountry)}`;
+    return `${countryName(guess.guessCountry)} · ${formatDistance(guess.countryDistanceM)} off`;
+  }
+  return formatDistance(guess.distanceM);
+}
 
 const primaryButton =
   "rounded-full bg-black px-6 py-2 font-medium text-white disabled:opacity-50 dark:bg-white dark:text-black";

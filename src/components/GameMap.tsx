@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { loadMapsLibrary, MAP_ID } from "@/lib/google-maps";
 import type { LatLng } from "@/lib/scoring";
+import type { RegionBounds } from "@/lib/regions";
 
 export interface MapGuess {
   position: LatLng;
@@ -23,6 +24,9 @@ interface Props {
   // Rounds to draw in results mode (one for a round recap, all of them for
   // the final summary).
   results: MapRound[];
+  // Where the guess map starts each round: the filtered region, or the
+  // whole world when null.
+  startBounds: RegionBounds | null;
 }
 
 const WORLD_VIEW = { center: { lat: 20, lng: 0 }, zoom: 1 };
@@ -36,7 +40,7 @@ function dot(color: string, label: string) {
 
 // One map instance for the whole game (each `new Map` is a billed map
 // load); switching modes only changes what's drawn on it.
-export function GameMap({ mode, pin, onPick, results }: Props) {
+export function GameMap({ mode, pin, onPick, results, startBounds }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const onPickRef = useRef(onPick);
@@ -87,13 +91,23 @@ export function GameMap({ mode, pin, onPick, results }: Props) {
     };
   }, [map, mode, pin]);
 
-  // Back to the world view at the start of each guessing phase.
+  // Back to the starting view at the start of each guessing phase.
   useEffect(() => {
     if (!map || mode !== "guess") return;
     map.setOptions({ draggableCursor: "crosshair" });
-    map.setCenter(WORLD_VIEW.center);
-    map.setZoom(WORLD_VIEW.zoom);
-  }, [map, mode]);
+    if (startBounds) {
+      map.fitBounds(
+        new google.maps.LatLngBounds(
+          { lat: startBounds.south, lng: startBounds.west },
+          { lat: startBounds.north, lng: startBounds.east }
+        ),
+        20
+      );
+    } else {
+      map.setCenter(WORLD_VIEW.center);
+      map.setZoom(WORLD_VIEW.zoom);
+    }
+  }, [map, mode, startBounds]);
 
   // Answers, guesses and the lines between them.
   useEffect(() => {

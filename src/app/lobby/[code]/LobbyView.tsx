@@ -5,13 +5,16 @@ import { useRouter } from "next/navigation";
 import { getSavedName, saveName, setIdentity, useIdentity, type Identity } from "@/lib/identity";
 import { subscribeRoomRow, subscribePlayersTable, upsertPlayer } from "@/lib/realtime/tables";
 import { useHostFailover } from "@/lib/realtime/presence";
-import { formatSeconds, MAX_ROUNDS, ROUND_TIME_OPTIONS } from "@/lib/rules";
+import { formatSeconds, MAX_ROUNDS, ROUND_TIME_OPTIONS, SCORING_MODE_LABELS, type ScoringMode } from "@/lib/rules";
+import { CONTINENTS, countriesByContinent, filterLabel, parseFilter } from "@/lib/regions";
 import { roomFromRow, type Player, type Room, type RoomRow } from "@/lib/types";
 
 
 interface Props {
   roomCode: string;
 }
+
+const COUNTRY_GROUPS = countriesByContinent();
 
 const HEARTBEAT_INTERVAL_MS = 15_000;
 
@@ -200,10 +203,15 @@ function RulesPanel({
   isHost: boolean;
 }) {
   const [error, setError] = useState<string | null>(null);
+  // Country-first scoring is meaningless on a one-country map (every guess
+  // would score 5000), so those games always use distance scoring.
+  const singleCountry = parseFilter(room.locationFilter)?.kind === "country";
 
   // Each control saves on change; the `rooms` row subscription then brings
   // every client (including this one) up to date.
-  async function save(update: Partial<Pick<Room, "roundCount" | "roundTimeSeconds" | "isPrivate">>) {
+  async function save(
+    update: Partial<Pick<Room, "roundCount" | "roundTimeSeconds" | "isPrivate" | "locationFilter" | "scoringMode">>
+  ) {
     setError(null);
     const res = await fetch(`/api/rooms/${roomCode}/rules`, {
       method: "POST",
@@ -226,14 +234,68 @@ function RulesPanel({
         <p className="text-sm">
           Time per round: <strong>{formatSeconds(room.roundTimeSeconds)}</strong>
         </p>
+        <p className="text-sm">
+          Locations: <strong>{filterLabel(room.locationFilter)}</strong>
+        </p>
+        <p className="text-sm">
+          Scoring: <strong>{SCORING_MODE_LABELS[singleCountry ? "distance" : room.scoringMode]}</strong>
+        </p>
       </div>
     );
   }
 
-  const selectClass = "rounded border px-2 py-2 dark:bg-zinc-900 dark:border-zinc-700";
+  const selectClass = "rounded border px-2 py-2 dark:bg-zinc-900 dark:border-zinc-700 disabled:opacity-50";
   return (
     <div className="w-full max-w-md rounded-lg border p-4 flex flex-col gap-3 dark:border-zinc-700">
       <h2 className="font-semibold">Rules (host only)</h2>
+      <label className="text-sm flex flex-col gap-1">
+        Locations
+        <select
+          value={room.locationFilter ?? ""}
+          onChange={(e) => save({ locationFilter: e.target.value || null })}
+          className={selectClass}
+        >
+          <option value="">World</option>
+          <optgroup label="Continents">
+            {Object.entries(CONTINENTS).map(([name, region]) => (
+              <option key={name} value={`continent:${name}`}>
+                {name} ({region.count.toLocaleString()})
+              </option>
+            ))}
+          </optgroup>
+          {COUNTRY_GROUPS.map(([continent, countries]) => (
+            <optgroup key={continent} label={continent}>
+              {countries.map(([code, country]) => (
+                <option key={code} value={`country:${code}`}>
+                  {country.name} ({country.count})
+                </option>
+              ))}
+            </optgroup>
+          ))}
+        </select>
+      </label>
+      <label className="text-sm flex flex-col gap-1">
+        Scoring
+        <select
+          value={singleCountry ? "distance" : room.scoringMode}
+          onChange={(e) => save({ scoringMode: e.target.value as ScoringMode })}
+          disabled={singleCountry}
+          className={selectClass}
+        >
+          {(Object.keys(SCORING_MODE_LABELS) as ScoringMode[]).map((mode) => (
+            <option key={mode} value={mode}>
+              {SCORING_MODE_LABELS[mode]}
+            </option>
+          ))}
+        </select>
+        <span className="text-xs text-zinc-500">
+          {singleCountry
+            ? "Single-country maps always use distance scoring."
+            : room.scoringMode === "country"
+              ? "Any guess in the right country scores 5,000. Otherwise, scored by distance to that country."
+              : "Scored by distance to the exact spot."}
+        </span>
+      </label>
       <label className="text-sm flex flex-col gap-1">
         Rounds
         <select

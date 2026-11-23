@@ -68,9 +68,20 @@ export async function buildSnapshot(
         status: r.status,
         startedAt: r.started_at,
         deadlineAt: r.deadline_at,
-        answer: finished && r.answer_lat !== null ? { lat: r.answer_lat, lng: r.answer_lng } : null,
+        answer:
+          finished && r.answer_lat !== null
+            ? { lat: r.answer_lat, lng: r.answer_lng, country: r.answer_country }
+            : null,
         guesses: visible.map(
-          (g): Guess => ({ playerId: g.player_id, lat: g.lat, lng: g.lng, distanceM: g.distance_m, score: g.score })
+          (g): Guess => ({
+            playerId: g.player_id,
+            lat: g.lat,
+            lng: g.lng,
+            distanceM: g.distance_m,
+            score: g.score,
+            guessCountry: g.guess_country,
+            countryDistanceM: g.country_distance_m,
+          })
         ),
       };
     });
@@ -80,6 +91,8 @@ export async function buildSnapshot(
       status: latestGame.status,
       roundCount: latestGame.round_count,
       roundTimeSeconds: latestGame.round_time_seconds,
+      locationFilter: latestGame.location_filter,
+      scoringMode: latestGame.scoring_mode,
       currentRound: latestGame.current_round,
       players: (gamePlayers ?? []).map((gp) => ({
         playerId: gp.player_id,

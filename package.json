@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run",
-    "gen:locations": "node --env-file=.env.local scripts/generate-locations.mjs"
+    "gen:locations": "node --env-file=.env.local scripts/generate-locations.mjs",
+    "gen:borders": "node scripts/generate-borders.mjs"
   },
   "dependencies": {
     "@googlemaps/js-api-loader": "^2.1.3",

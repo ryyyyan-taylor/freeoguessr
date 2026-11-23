@@ -2,12 +2,14 @@ import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/server";
 import { authenticatePlayer } from "@/lib/auth";
 import { withErrorHandling } from "@/lib/api-route";
-import { MAX_ROUNDS, ROUND_TIME_OPTIONS } from "@/lib/rules";
+import { MAX_ROUNDS, ROUND_TIME_OPTIONS, SCORING_MODES } from "@/lib/rules";
+import { isValidFilter } from "@/lib/regions";
 
 export const POST = withErrorHandling(async (request: Request, { params }: { params: Promise<{ code: string }> }) => {
   const { code } = await params;
   const roomCode = code.toUpperCase();
-  const { playerId, token, roundCount, roundTimeSeconds, isPrivate } = await request.json();
+  const { playerId, token, roundCount, roundTimeSeconds, isPrivate, locationFilter, scoringMode } =
+    await request.json();
 
   const supabase = supabaseAdmin();
   const player = await authenticatePlayer(supabase, roomCode, playerId, token);
@@ -29,6 +31,14 @@ export const POST = withErrorHandling(async (request: Request, { params }: { par
     update.round_time_seconds = roundTimeSeconds;
   }
   if (isPrivate !== undefined) update.is_private = Boolean(isPrivate);
+  if (locationFilter !== undefined) {
+    if (!isValidFilter(locationFilter)) return NextResponse.json({ error: "Unknown location filter" }, { status: 400 });
+    update.location_filter = locationFilter;
+  }
+  if (scoringMode !== undefined) {
+    if (!SCORING_MODES.includes(scoringMode)) return NextResponse.json({ error: "Unknown scoring mode" }, { status: 400 });
+    update.scoring_mode = scoringMode;
+  }
 
   const { error } = await supabase.from("rooms").update(update).eq("code", roomCode);
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
