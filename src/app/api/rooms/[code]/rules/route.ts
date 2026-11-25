@@ -2,13 +2,13 @@ import { NextResponse } from "next/server";
 import { supabaseAdmin } from "@/lib/supabase/server";
 import { authenticatePlayer } from "@/lib/auth";
 import { withErrorHandling } from "@/lib/api-route";
-import { MAX_ROUNDS, ROUND_TIME_OPTIONS, SCORING_MODES } from "@/lib/rules";
+import { isLocationMix, MAX_ROUNDS, ROUND_TIME_OPTIONS, SCORING_MODES } from "@/lib/rules";
 import { isValidFilter } from "@/lib/regions";
 
 export const POST = withErrorHandling(async (request: Request, { params }: { params: Promise<{ code: string }> }) => {
   const { code } = await params;
   const roomCode = code.toUpperCase();
-  const { playerId, token, roundCount, roundTimeSeconds, isPrivate, locationFilter, scoringMode } =
+  const { playerId, token, roundCount, roundTimeSeconds, isPrivate, locationFilter, scoringMode, locationMix } =
     await request.json();
 
   const supabase = supabaseAdmin();
@@ -38,6 +38,10 @@ export const POST = withErrorHandling(async (request: Request, { params }: { par
   if (scoringMode !== undefined) {
     if (!SCORING_MODES.includes(scoringMode)) return NextResponse.json({ error: "Unknown scoring mode" }, { status: 400 });
     update.scoring_mode = scoringMode;
+  }
+  if (locationMix !== undefined) {
+    if (!isLocationMix(locationMix)) return NextResponse.json({ error: "Unknown location mix" }, { status: 400 });
+    update.location_mix = locationMix;
   }
 
   const { error } = await supabase.from("rooms").update(update).eq("code", roomCode);

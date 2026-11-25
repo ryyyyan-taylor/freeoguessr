@@ -5,7 +5,15 @@ import { useRouter } from "next/navigation";
 import { getSavedName, saveName, setIdentity, useIdentity, type Identity } from "@/lib/identity";
 import { subscribeRoomRow, subscribePlayersTable, upsertPlayer } from "@/lib/realtime/tables";
 import { useHostFailover } from "@/lib/realtime/presence";
-import { formatSeconds, MAX_ROUNDS, ROUND_TIME_OPTIONS, SCORING_MODE_LABELS, type ScoringMode } from "@/lib/rules";
+import {
+  formatSeconds,
+  LOCATION_MIXES,
+  MAX_ROUNDS,
+  ROUND_TIME_OPTIONS,
+  SCORING_MODE_LABELS,
+  type LocationMix,
+  type ScoringMode,
+} from "@/lib/rules";
 import { CONTINENTS, countriesByContinent, filterLabel, parseFilter } from "@/lib/regions";
 import { roomFromRow, type Player, type Room, type RoomRow } from "@/lib/types";
 
@@ -210,7 +218,9 @@ function RulesPanel({
   // Each control saves on change; the `rooms` row subscription then brings
   // every client (including this one) up to date.
   async function save(
-    update: Partial<Pick<Room, "roundCount" | "roundTimeSeconds" | "isPrivate" | "locationFilter" | "scoringMode">>
+    update: Partial<
+      Pick<Room, "roundCount" | "roundTimeSeconds" | "isPrivate" | "locationFilter" | "scoringMode" | "locationMix">
+    >
   ) {
     setError(null);
     const res = await fetch(`/api/rooms/${roomCode}/rules`, {
@@ -236,6 +246,9 @@ function RulesPanel({
         </p>
         <p className="text-sm">
           Locations: <strong>{filterLabel(room.locationFilter)}</strong>
+        </p>
+        <p className="text-sm">
+          Location mix: <strong>{LOCATION_MIXES[room.locationMix].label}</strong>
         </p>
         <p className="text-sm">
           Scoring: <strong>{SCORING_MODE_LABELS[singleCountry ? "distance" : room.scoringMode]}</strong>
@@ -273,6 +286,21 @@ function RulesPanel({
             </optgroup>
           ))}
         </select>
+      </label>
+      <label className="text-sm flex flex-col gap-1">
+        Location mix
+        <select
+          value={room.locationMix}
+          onChange={(e) => save({ locationMix: e.target.value as LocationMix })}
+          className={selectClass}
+        >
+          {(Object.keys(LOCATION_MIXES) as LocationMix[]).map((mix) => (
+            <option key={mix} value={mix}>
+              {LOCATION_MIXES[mix].label}
+            </option>
+          ))}
+        </select>
+        <span className="text-xs text-zinc-500">{LOCATION_MIXES[room.locationMix].description}</span>
       </label>
       <label className="text-sm flex flex-col gap-1">
         Scoring

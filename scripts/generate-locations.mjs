@@ -8,34 +8,59 @@
 //
 // Each country's share of the pool is SCALE × √(area in km²), clamped to
 // [MIN, MAX]. Square-root weighting keeps mid-sized countries playable on
-// their own (France ~160, Japan ~130) without giants taking over, and makes
+// their own (France ~1,270, Japan ~1,040) without giants taking over, and makes
 // the combined World pool "balanced" the way GeoGuessr's official World
 // map is: small countries show up more than their area alone suggests.
+//
+// Every location is tagged with a tier (city, town or rural) from the GHSL
+// Degree of Urbanisation grid (scripts/lib/urbanisation.mjs), and each
+// country's share is split into per-tier quotas (TIER_SHARE). Sampling by
+// area alone lands ~85% of spots on open-country roads, so city and town
+// spots are sampled from that tier's grid cells instead. The game then
+// picks a tier per round (src/lib/selection.ts).
+//
+// Runs are incremental: existing locations are kept (and tagged if they
+// aren't yet), and each country is topped up to its quotas. Spots past a
+// quota are kept too; the game picks a tier first, so they don't skew it.
 //
 // Usage:
 //   node --env-file=.env.local scripts/generate-locations.mjs
 //   node --env-file=.env.local scripts/generate-locations.mjs --only US,FR
-//     (regenerate just those countries, keeping everyone else's locations)
+//     (top up just those countries)
+//   node --env-file=.env.local scripts/generate-locations.mjs --fresh [--only US,FR]
+//     (discard those countries' existing locations first)
 //   node scripts/generate-locations.mjs --regions-only
-//     (no lookups: de-duplicate the existing pool and rebuild regions.json)
+//     (no lookups: de-duplicate and tag the existing pool, rebuild regions.json)
 
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { loadBoundaries, mergedCountries, polygonArea } from "./lib/natural-earth.mjs";
+import { loadUrbanisation, tierOf, TIERS } from "./lib/urbanisation.mjs";
 
-const SCALE = 0.25;
-const MIN_PER_COUNTRY = 40;
-const MAX_PER_COUNTRY = 600;
-const SEARCH_RADIUS_M = 10_000;
-const CONCURRENCY = 20;
-// Give up on a country after this many samples per target location, or
-// early if it plainly has no coverage.
+// Big on purpose: more spots means more variety, especially in cities.
+// About half the targets are reachable (many countries have little or no
+// coverage), giving a pool of 100k+ (~13 MB, server-side only).
+const SCALE = 2;
+const MIN_PER_COUNTRY = 250;
+const MAX_PER_COUNTRY = 5000;
+// Share of each country's quota per tier.
+const TIER_SHARE = { city: 0.3, town: 0.35, rural: 0.35 };
+// Rural points are often far from any road; in a city or town a wide
+// search would just find the nearest highway.
+const SEARCH_RADIUS_M = { city: 1_000, town: 1_000, rural: 10_000 };
+const CONCURRENCY = 50;
+// Give up on a country's tier after this many samples per target location,
+// or once this many samples in a row have found nothing new (no coverage,
+// or every reachable spot already found).
 const MAX_ATTEMPTS_PER_TARGET = 40;
-const NO_COVERAGE_ATTEMPTS = 300;
+const STALL_ATTEMPTS = 300;
+// Long runs save the pool this often, so they can be stopped and resumed.
+const SAVE_EVERY_MS = 60_000;
 
 const POOL_FILE = new URL("../src/lib/locations.json", import.meta.url);
 const REGIONS_FILE = new URL("../src/lib/regions.json", import.meta.url);
 
 const regionsOnly = process.argv.includes("--regions-only");
+const fresh = process.argv.includes("--fresh");
 const key = process.env.GOOGLE_MAPS_SERVER_KEY;
 if (!key && !regionsOnly) {
   console.error("GOOGLE_MAPS_SERVER_KEY is not set (try: node --env-file=.env.local ...)");
@@ -117,54 +142,88 @@ function continentOf(country, { lat, lng }) {
 
 // ---------- Street View ----------
 
-async function lookup(point) {
+async function lookup(point, radius) {
   const params = new URLSearchParams({
     location: `${point.lat},${point.lng}`,
-    radius: String(SEARCH_RADIUS_M),
+    radius: String(radius),
     source: "outdoor",
     key,
   });
-  const res = await fetch(`https://maps.googleapis.com/maps/api/streetview/metadata?${params}`);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const data = await res.json();
+  let data;
+  // Rate-limited: back off and retry, rather than mistaking it for "no
+  // coverage here" and giving up on the country.
+  for (let delay = 1000; ; delay *= 2) {
+    const res = await fetch(`https://maps.googleapis.com/maps/api/streetview/metadata?${params}`);
+    data = res.ok ? await res.json() : { status: res.status === 429 ? "OVER_QUERY_LIMIT" : `HTTP ${res.status}` };
+    if (data.status !== "OVER_QUERY_LIMIT" || delay > 60_000) break;
+    await new Promise((resolve) => setTimeout(resolve, delay));
+  }
+  if (data.status.startsWith("HTTP") || data.status === "OVER_QUERY_LIMIT" || data.status === "UNKNOWN_ERROR") {
+    throw new Error(data.status);
+  }
   if (data.status === "REQUEST_DENIED") {
     console.error(`Request denied: ${data.error_message}`);
     process.exit(1);
   }
   // Official coverage only; user photospheres credit the uploader instead.
   if (data.status !== "OK" || !data.copyright?.includes("Google")) return null;
-  return { lat: data.location.lat, lng: data.location.lng, panoId: data.pano_id };
+  // Rounded here, as stored, so duplicate checks see what's saved.
+  return { lat: Number(data.location.lat.toFixed(6)), lng: Number(data.location.lng.toFixed(6)), panoId: data.pano_id };
 }
 
 // Two panoramas this close (~10 m) are the same spot as far as the game is
 // concerned; it also keys "already used this game" on this.
 const spotKey = (l) => `${l.lat.toFixed(4)},${l.lng.toFixed(4)}`;
 
-async function generateCountry(country, target, seen) {
+// Tops up `need` ({ city, town, rural } counts) for one country. Each
+// panorama is tagged by the cell it actually stands in, which isn't always
+// the tier it was sampled for; it's kept if that tier still needs spots.
+async function generateCountry(country, need, seen, urbanisation, cells) {
   const found = [];
-  let attempts = 0;
+  const attempts = { city: 0, town: 0, rural: 0 };
+  const sinceNew = { city: 0, town: 0, rural: 0 };
+  const tierCells = {};
+  for (const tier of ["city", "town"]) {
+    tierCells[tier] = country.parts.flatMap((part) =>
+      cells.inBox(part.bbox, tier).filter((c) => inPolygon(c.lng, c.lat, part.polygon))
+    );
+  }
   const pickPart = () => {
     let r = Math.random() * country.area;
     for (const part of country.parts) if ((r -= part.area) <= 0) return part;
     return country.parts[country.parts.length - 1];
   };
-  const done = () =>
-    found.length >= target ||
-    attempts >= target * MAX_ATTEMPTS_PER_TARGET ||
-    (attempts >= NO_COVERAGE_ATTEMPTS && found.length === 0);
+  const exhausted = (tier) =>
+    (tier !== "rural" && tierCells[tier].length === 0) ||
+    attempts[tier] >= Math.max(1, need[tier]) * MAX_ATTEMPTS_PER_TARGET ||
+    sinceNew[tier] >= STALL_ATTEMPTS;
+  const open = () => TIERS.filter((t) => need[t] > 0 && !exhausted(t));
+
+  function samplePoint(tier) {
+    if (tier === "rural") return samplePolygon(pickPart());
+    const list = tierCells[tier];
+    const c = list[Math.floor(Math.random() * list.length)];
+    return urbanisation.randomPointIn(c.col, c.row);
+  }
 
   async function worker() {
-    while (!done()) {
-      attempts++;
-      const point = samplePolygon(pickPart());
+    for (let tiers = open(); tiers.length > 0; tiers = open()) {
+      const tier = tiers[Math.floor(Math.random() * tiers.length)];
+      attempts[tier]++;
+      sinceNew[tier]++;
+      const point = samplePoint(tier);
       if (!point) continue;
       try {
-        const pano = await lookup(point);
+        const pano = await lookup(point, SEARCH_RADIUS_M[tier]);
         // The nearest panorama can be across a border.
-        if (pano && !seen.has(pano.panoId) && !seen.has(spotKey(pano)) && inCountry(country, pano) && found.length < target) {
+        if (!pano || !inCountry(country, pano)) continue;
+        const actual = tierOf(await urbanisation.classAt(pano.lat, pano.lng));
+        if (need[actual] > 0 && !seen.has(pano.panoId) && !seen.has(spotKey(pano))) {
           seen.add(pano.panoId);
           seen.add(spotKey(pano));
-          found.push(pano);
+          need[actual]--;
+          sinceNew[tier] = 0;
+          found.push({ ...pano, tier: actual });
         }
       } catch (error) {
         console.error(`${country.code}: ${error.message}`);
@@ -172,7 +231,7 @@ async function generateCountry(country, target, seen) {
     }
   }
   await Promise.all(Array.from({ length: CONCURRENCY }, worker));
-  return { found, attempts };
+  return { found, attempts: attempts.city + attempts.town + attempts.rural };
 }
 
 // ---------- regions ----------
@@ -180,9 +239,31 @@ async function generateCountry(country, target, seen) {
 // Map size for scoring: the distance between the two furthest-apart
 // locations, standing in for GeoGuessr's per-map size.
 function mapSize(points) {
+  if (points.length > 3000) return approximateMapSize(points);
   let max = 0;
   for (let i = 0; i < points.length; i++)
     for (let j = i + 1; j < points.length; j++) max = Math.max(max, haversineM(points[i], points[j]));
+  return Math.round(max);
+}
+
+// Exact is O(n²), too slow for continents. Repeatedly jumping to the point
+// farthest from the current one climbs to the diameter (or very near it)
+// in a few sweeps; a few starting points guard against a local maximum.
+function approximateMapSize(points) {
+  let max = 0;
+  for (let start = 0; start < 8; start++) {
+    let from = points[Math.floor((start / 8) * points.length)];
+    for (let sweep = 0; sweep < 4; sweep++) {
+      let far = from;
+      let farD = 0;
+      for (const p of points) {
+        const d = haversineM(from, p);
+        if (d > farD) [far, farD] = [p, d];
+      }
+      max = Math.max(max, farD);
+      from = far;
+    }
+  }
   return Math.round(max);
 }
 
@@ -234,40 +315,68 @@ function buildRegions(pool, countries) {
 // ---------- main ----------
 
 const countries = countriesFrom(await loadBoundaries());
+const urbanisation = await loadUrbanisation();
+const readPool = () => (existsSync(POOL_FILE) ? JSON.parse(readFileSync(POOL_FILE, "utf8")) : []);
+
+// Tags any location that has no tier yet.
+async function tagged(locations) {
+  for (const l of locations) l.tier ??= tierOf(await urbanisation.classAt(l.lat, l.lng));
+  return locations;
+}
+
+function writePool(locations) {
+  writeFileSync(POOL_FILE, "[\n" + locations.map((l) => JSON.stringify(l)).join(",\n") + "\n]\n");
+}
+
 let pool;
 
 if (regionsOnly) {
   const spots = new Set();
-  pool = JSON.parse(readFileSync(POOL_FILE, "utf8")).filter((l) => {
-    if (spots.has(spotKey(l))) return false;
-    spots.add(spotKey(l));
-    return true;
-  });
+  pool = await tagged(
+    readPool().filter((l) => {
+      if (spots.has(spotKey(l))) return false;
+      spots.add(spotKey(l));
+      return true;
+    })
+  );
 } else {
-  const existing = only && existsSync(POOL_FILE) ? JSON.parse(readFileSync(POOL_FILE, "utf8")) : [];
-  pool = existing.filter((l) => l.country && !only.has(l.country));
+  const selected = (code) => !only || only.has(code);
+  pool = await tagged(readPool().filter((l) => l.country && !(fresh && selected(l.country))));
   const seen = new Set(pool.flatMap((l) => [l.panoId, spotKey(l)]));
+  const cells = await urbanisation.builtUpCells();
 
   let totalAttempts = 0;
+  let lastSave = Date.now();
   for (const country of countries) {
-    if (only && !only.has(country.code)) continue;
+    if (!selected(country.code)) continue;
+    if (Date.now() - lastSave > SAVE_EVERY_MS) {
+      writePool(pool);
+      lastSave = Date.now();
+    }
     const target = Math.min(MAX_PER_COUNTRY, Math.max(MIN_PER_COUNTRY, Math.round(SCALE * Math.sqrt(country.area))));
-    const { found, attempts } = await generateCountry(country, target, seen);
+    const have = { city: 0, town: 0, rural: 0 };
+    for (const l of pool) if (l.country === country.code) have[l.tier]++;
+    const need = Object.fromEntries(TIERS.map((t) => [t, Math.max(0, Math.round(target * TIER_SHARE[t]) - have[t])]));
+    const wanted = { ...need };
+    const { found, attempts } = await generateCountry(country, need, seen, urbanisation, cells);
     totalAttempts += attempts;
     for (const p of found) {
       pool.push({
-        lat: Number(p.lat.toFixed(6)),
-        lng: Number(p.lng.toFixed(6)),
+        lat: p.lat,
+        lng: p.lng,
         panoId: p.panoId,
         country: country.code,
         continent: continentOf(country, p),
+        tier: p.tier,
       });
+      have[p.tier]++;
     }
-    console.log(`${country.code.padEnd(4)} ${country.name.padEnd(28)} ${String(found.length).padStart(4)}/${target} (${attempts} samples)`);
+    const summary = TIERS.map((t) => `${t} ${have[t]}${wanted[t] ? ` (+${wanted[t] - need[t]}/${wanted[t]})` : ""}`).join(", ");
+    console.log(`${country.code.padEnd(4)} ${country.name.padEnd(28)} ${summary} [${attempts} samples]`);
   }
   console.log(`${totalAttempts} samples.`);
 }
 
-writeFileSync(POOL_FILE, "[\n" + pool.map((l) => JSON.stringify(l)).join(",\n") + "\n]\n");
+writePool(pool);
 writeFileSync(REGIONS_FILE, JSON.stringify(buildRegions(pool, countries), null, 2) + "\n");
 console.log(`Wrote ${pool.length} locations and the region list.`);

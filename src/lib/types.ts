@@ -1,8 +1,8 @@
 export type RoomStatus = "lobby" | "playing";
 export type GameStatus = "active" | "finished";
 export type RoundStatus = "active" | "finished";
-export type { ScoringMode } from "@/lib/rules";
-import type { ScoringMode } from "@/lib/rules";
+export type { LocationMix, ScoringMode } from "@/lib/rules";
+import type { LocationMix, ScoringMode } from "@/lib/rules";
 
 // Shapes returned by our own API routes (camelCase).
 export interface Player {
@@ -21,6 +21,7 @@ export interface Room {
   // "country:US", "continent:Europe", or null for the world.
   locationFilter: string | null;
   scoringMode: ScoringMode;
+  locationMix: LocationMix;
 }
 
 // Returned by GET /api/rooms for the home page's open-room list — already
@@ -88,6 +89,7 @@ export interface RoomRow {
   round_time_seconds: number;
   location_filter: string | null;
   scoring_mode: ScoringMode;
+  location_mix: LocationMix;
 }
 
 export interface GameRow {
@@ -126,5 +128,6 @@ export function roomFromRow(row: RoomRow): Room {
     roundTimeSeconds: row.round_time_seconds,
     locationFilter: row.location_filter,
     scoringMode: row.scoring_mode,
+    locationMix: row.location_mix,
   };
 }

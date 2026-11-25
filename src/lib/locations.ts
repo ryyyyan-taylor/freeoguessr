@@ -1,5 +1,6 @@
 import pool from "./locations.json";
 import { parseFilter, type LocationFilter } from "./regions";
+import type { Tier } from "./rules";
 
 export interface PoolLocation {
   lat: number;
@@ -7,6 +8,7 @@ export interface PoolLocation {
   panoId: string;
   country: string;
   continent: string;
+  tier: Tier;
 }
 
 export const LOCATION_POOL = pool as PoolLocation[];

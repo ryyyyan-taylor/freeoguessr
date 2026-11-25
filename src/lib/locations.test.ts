@@ -3,14 +3,18 @@ import { filterPool, LOCATION_POOL, locationKey } from "./locations";
 import { CONTINENTS, COUNTRIES, countriesByContinent, isValidFilter, mapSizeFor, WORLD_MAP_SIZE_M } from "./regions";
 
 describe("location pool", () => {
-  it("has valid coordinates, a panorama and a region for every entry", () => {
-    for (const l of LOCATION_POOL) {
-      expect(Math.abs(l.lat)).toBeLessThanOrEqual(90);
-      expect(Math.abs(l.lng)).toBeLessThanOrEqual(180);
-      expect(l.panoId).toBeTruthy();
-      expect(COUNTRIES[l.country]).toBeDefined();
-      expect(CONTINENTS[l.continent]).toBeDefined();
-    }
+  it("has valid coordinates, a panorama, a region and a tier for every entry", () => {
+    // One expect per entry is too slow for a 100k pool; collect the bad ones.
+    const bad = LOCATION_POOL.filter(
+      (l) =>
+        !(Math.abs(l.lat) <= 90) ||
+        !(Math.abs(l.lng) <= 180) ||
+        !l.panoId ||
+        !COUNTRIES[l.country] ||
+        !CONTINENTS[l.continent] ||
+        !["city", "town", "rural"].includes(l.tier)
+    );
+    expect(bad).toEqual([]);
   });
 
   it("has no duplicate locations", () => {

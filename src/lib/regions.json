@@ -1,62 +1,62 @@
 {
   "continents": {
     "Africa": {
-      "count": 1768,
-      "mapSizeM": 8889679,
+      "count": 13081,
+      "mapSizeM": 9020495,
       "bounds": {
-        "north": 37.171,
-        "south": -34.133,
-        "east": 55.437,
-        "west": -17.371
+        "north": 37.254,
+        "south": -34.446,
+        "east": 55.637,
+        "west": -17.501
       }
     },
     "Asia": {
-      "count": 3683,
-      "mapSizeM": 11420576,
+      "count": 27239,
+      "mapSizeM": 12154596,
       "bounds": {
-        "north": 63.586,
+        "north": 66.652,
         "south": -10.853,
-        "east": 145.773,
-        "west": 26.424
+        "east": 158.676,
+        "west": 26.244
       }
     },
     "Europe": {
-      "count": 2672,
-      "mapSizeM": 6436258,
+      "count": 20236,
+      "mapSizeM": 6685883,
       "bounds": {
         "north": 79.713,
-        "south": 28.628,
-        "east": 59.663,
-        "west": -25.54
+        "south": 27.768,
+        "east": 59.968,
+        "west": -27.306
       }
     },
     "North America": {
-      "count": 1755,
-      "mapSizeM": 9690036,
+      "count": 14939,
+      "mapSizeM": 9977104,
       "bounds": {
         "north": 81.639,
-        "south": 7.446,
-        "east": -53.18,
-        "west": -155.88
+        "south": 7.319,
+        "east": -46.021,
+        "west": -159.519
       }
     },
     "Oceania": {
-      "count": 930,
-      "mapSizeM": 11447098,
+      "count": 6762,
+      "mapSizeM": 11535701,
       "bounds": {
-        "north": 15.248,
-        "south": -46.539,
+        "north": 15.257,
+        "south": -46.836,
         "east": -128.305,
-        "west": 113.722
+        "west": 113.675
       }
     },
     "South America": {
-      "count": 2328,
-      "mapSizeM": 7410506,
+      "count": 18456,
+      "mapSizeM": 7428861,
       "bounds": {
-        "north": 11.705,
-        "south": -54.799,
-        "east": -35.297,
+        "north": 11.896,
+        "south": -54.809,
+        "east": -34.829,
         "west": -91.125
       }
     }
@@ -65,7 +65,7 @@
     "AX": {
       "name": "Åland",
       "continent": "Europe",
-      "count": 40,
+      "count": 176,
       "mapSizeM": 56757,
       "bounds": {
         "north": 60.371,
@@ -77,59 +77,71 @@
     "AL": {
       "name": "Albania",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 296640,
+      "count": 280,
+      "mapSizeM": 318913,
       "bounds": {
         "north": 42.53,
-        "south": 39.878,
-        "east": 20.627,
-        "west": 19.511
+        "south": 39.684,
+        "east": 20.99,
+        "west": 19.423
       }
     },
     "AS": {
       "name": "American Samoa",
       "continent": "Oceania",
-      "count": 40,
-      "mapSizeM": 21521,
+      "count": 165,
+      "mapSizeM": 21641,
       "bounds": {
-        "north": -14.263,
-        "south": -14.349,
+        "north": -14.261,
+        "south": -14.358,
         "east": -170.604,
-        "west": -170.795
+        "west": -170.796
       }
     },
     "AD": {
       "name": "Andorra",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 23431,
+      "count": 238,
+      "mapSizeM": 24255,
       "bounds": {
         "north": 42.632,
         "south": 42.438,
-        "east": 1.669,
+        "east": 1.7,
         "west": 1.447
+      }
+    },
+    "AO": {
+      "name": "Angola",
+      "continent": "Africa",
+      "count": 2,
+      "mapSizeM": 156673,
+      "bounds": {
+        "north": -17.396,
+        "south": -17.873,
+        "east": 19.803,
+        "west": 18.412
       }
     },
     "AR": {
       "name": "Argentina",
       "continent": "South America",
-      "count": 367,
-      "mapSizeM": 3645898,
+      "count": 2929,
+      "mapSizeM": 3663530,
       "bounds": {
-        "north": -22.21,
-        "south": -54.799,
-        "east": -54.144,
-        "west": -72.883
+        "north": -22.045,
+        "south": -54.809,
+        "east": -54.052,
+        "west": -73.149
       }
     },
     "AM": {
       "name": "Armenia",
       "continent": "Asia",
-      "count": 7,
+      "count": 11,
       "mapSizeM": 128276,
       "bounds": {
         "north": 40.932,
-        "south": 39.967,
+        "south": 39.966,
         "east": 44.47,
         "west": 43.64
       }
@@ -137,43 +149,55 @@
     "AU": {
       "name": "Australia",
       "continent": "Oceania",
-      "count": 600,
-      "mapSizeM": 3956662,
+      "count": 4888,
+      "mapSizeM": 4034951,
       "bounds": {
-        "north": -12.574,
-        "south": -42.882,
-        "east": 153.469,
-        "west": 113.722
+        "north": -12.366,
+        "south": -43.057,
+        "east": 153.591,
+        "west": 113.675
       }
     },
     "AT": {
       "name": "Austria",
       "continent": "Europe",
-      "count": 54,
-      "mapSizeM": 316137,
+      "count": 428,
+      "mapSizeM": 568627,
       "bounds": {
-        "north": 48.729,
+        "north": 48.864,
         "south": 46.415,
         "east": 17.055,
-        "west": 12.984
+        "west": 9.553
+      }
+    },
+    "AZ": {
+      "name": "Azerbaijan",
+      "continent": "Asia",
+      "count": 5,
+      "mapSizeM": 362208,
+      "bounds": {
+        "north": 40.824,
+        "south": 40.392,
+        "east": 49.928,
+        "west": 45.674
       }
     },
     "BD": {
       "name": "Bangladesh",
       "continent": "Asia",
-      "count": 88,
-      "mapSizeM": 690767,
+      "count": 653,
+      "mapSizeM": 723029,
       "bounds": {
-        "north": 26.379,
-        "south": 21.093,
-        "east": 92.212,
+        "north": 26.488,
+        "south": 21.03,
+        "east": 92.421,
         "west": 88.071
       }
     },
     "BY": {
       "name": "Belarus",
       "continent": "Europe",
-      "count": 23,
+      "count": 24,
       "mapSizeM": 506605,
       "bounds": {
         "north": 56.074,
@@ -185,103 +209,115 @@
     "BE": {
       "name": "Belgium",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 263173,
+      "count": 251,
+      "mapSizeM": 285170,
       "bounds": {
         "north": 51.43,
-        "south": 49.629,
+        "south": 49.559,
         "east": 6.191,
-        "west": 2.604
+        "west": 2.551
       }
     },
     "BZ": {
       "name": "Belize",
       "continent": "North America",
-      "count": 15,
-      "mapSizeM": 287431,
+      "count": 60,
+      "mapSizeM": 290606,
       "bounds": {
         "north": 18.424,
-        "south": 15.928,
+        "south": 15.897,
         "east": -88.282,
-        "west": -89.235
+        "west": -89.236
+      }
+    },
+    "BJ": {
+      "name": "Benin",
+      "continent": "Africa",
+      "count": 11,
+      "mapSizeM": 363236,
+      "bounds": {
+        "north": 9.832,
+        "south": 6.623,
+        "east": 3.366,
+        "west": 2.74
       }
     },
     "BM": {
       "name": "Bermuda",
       "continent": "North America",
-      "count": 40,
-      "mapSizeM": 13600,
+      "count": 184,
+      "mapSizeM": 19116,
       "bounds": {
         "north": 32.38,
-        "south": 32.287,
+        "south": 32.26,
         "east": -64.673,
-        "west": -64.778
+        "west": -64.822
       }
     },
     "BT": {
       "name": "Bhutan",
       "continent": "Asia",
-      "count": 47,
-      "mapSizeM": 293694,
+      "count": 362,
+      "mapSizeM": 307858,
       "bounds": {
-        "north": 27.647,
-        "south": 26.835,
-        "east": 91.835,
-        "west": 88.88
+        "north": 27.683,
+        "south": 26.809,
+        "east": 91.957,
+        "west": 88.857
       }
     },
     "BO": {
       "name": "Bolivia",
       "continent": "South America",
-      "count": 255,
-      "mapSizeM": 1446157,
+      "count": 1861,
+      "mapSizeM": 1447139,
       "bounds": {
         "north": -9.767,
-        "south": -22.726,
-        "east": -60.823,
+        "south": -22.734,
+        "east": -60.796,
         "west": -69.595
       }
     },
     "BA": {
       "name": "Bosnia and Herz.",
       "continent": "Europe",
-      "count": 45,
-      "mapSizeM": 299174,
+      "count": 360,
+      "mapSizeM": 343598,
       "bounds": {
-        "north": 45.184,
-        "south": 42.915,
-        "east": 19.33,
-        "west": 16.027
+        "north": 45.215,
+        "south": 42.696,
+        "east": 19.37,
+        "west": 15.783
       }
     },
     "BW": {
       "name": "Botswana",
       "continent": "Africa",
-      "count": 183,
-      "mapSizeM": 1038463,
+      "count": 1434,
+      "mapSizeM": 1096030,
       "bounds": {
-        "north": -17.832,
-        "south": -26.69,
+        "north": -17.797,
+        "south": -26.822,
         "east": 29.029,
-        "west": 20.109
+        "west": 20.054
       }
     },
     "BR": {
       "name": "Brazil",
       "continent": "South America",
-      "count": 600,
-      "mapSizeM": 4132160,
+      "count": 4932,
+      "mapSizeM": 4215082,
       "bounds": {
-        "north": 4.093,
-        "south": -32.378,
-        "east": -35.297,
-        "west": -72.816
+        "north": 4.341,
+        "south": -32.749,
+        "east": -34.829,
+        "west": -73.062
       }
     },
     "BN": {
       "name": "Brunei",
       "continent": "Asia",
-      "count": 5,
+      "count": 7,
       "mapSizeM": 25878,
       "bounds": {
         "north": 4.774,
@@ -293,12 +329,12 @@
     "BG": {
       "name": "Bulgaria",
       "continent": "Europe",
-      "count": 68,
-      "mapSizeM": 478185,
+      "count": 543,
+      "mapSizeM": 497076,
       "bounds": {
         "north": 44.102,
         "south": 41.351,
-        "east": 28.378,
+        "east": 28.528,
         "west": 22.544
       }
     },
@@ -317,35 +353,47 @@
     "KH": {
       "name": "Cambodia",
       "continent": "Asia",
-      "count": 105,
-      "mapSizeM": 547670,
+      "count": 843,
+      "mapSizeM": 565428,
       "bounds": {
-        "north": 14.315,
-        "south": 10.626,
+        "north": 14.395,
+        "south": 10.507,
         "east": 107.466,
-        "west": 102.473
+        "west": 102.352
+      }
+    },
+    "CM": {
+      "name": "Cameroon",
+      "continent": "Africa",
+      "count": 1,
+      "mapSizeM": 0,
+      "bounds": {
+        "north": 9.113,
+        "south": 9.113,
+        "east": 12.883,
+        "west": 12.883
       }
     },
     "CA": {
       "name": "Canada",
       "continent": "North America",
-      "count": 460,
+      "count": 3541,
       "mapSizeM": 5418013,
       "bounds": {
         "north": 81.639,
-        "south": 42.055,
-        "east": -53.18,
+        "south": 41.988,
+        "east": -52.799,
         "west": -140.047
       }
     },
     "CL": {
       "name": "Chile",
       "continent": "South America",
-      "count": 183,
-      "mapSizeM": 3953756,
+      "count": 1466,
+      "mapSizeM": 4065092,
       "bounds": {
         "north": -17.722,
-        "south": -53.278,
+        "south": -54.273,
         "east": -67.133,
         "west": -74.044
       }
@@ -353,175 +401,199 @@
     "CO": {
       "name": "Colombia",
       "continent": "South America",
-      "count": 267,
-      "mapSizeM": 1788482,
+      "count": 2093,
+      "mapSizeM": 1801004,
       "bounds": {
-        "north": 11.705,
+        "north": 11.896,
         "south": -4.145,
         "east": -69.939,
-        "west": -78.738
+        "west": -78.8
       }
     },
     "CR": {
       "name": "Costa Rica",
       "continent": "North America",
-      "count": 56,
+      "count": 451,
       "mapSizeM": 418212,
       "bounds": {
-        "north": 11.068,
-        "south": 8.436,
-        "east": -82.748,
+        "north": 11.069,
+        "south": 8.425,
+        "east": -82.744,
         "west": -85.818
       }
     },
     "HR": {
       "name": "Croatia",
       "continent": "Europe",
-      "count": 45,
-      "mapSizeM": 387575,
+      "count": 363,
+      "mapSizeM": 425162,
       "bounds": {
-        "north": 46.422,
+        "north": 46.482,
         "south": 42.947,
-        "east": 18.87,
-        "west": 14.569
+        "east": 19.013,
+        "west": 13.573
       }
     },
     "CW": {
       "name": "Curaçao",
       "continent": "North America",
-      "count": 1,
-      "mapSizeM": 0,
+      "count": 166,
+      "mapSizeM": 44715,
       "bounds": {
         "north": 12.329,
-        "south": 12.329,
-        "east": -69.15,
+        "south": 12.083,
+        "east": -68.821,
         "west": -69.15
       }
     },
     "CY": {
       "name": "Cyprus",
       "continent": "Asia",
-      "count": 40,
-      "mapSizeM": 68901,
+      "count": 241,
+      "mapSizeM": 146663,
       "bounds": {
-        "north": 35.14,
-        "south": 34.712,
-        "east": 33.482,
-        "west": 32.746
+        "north": 35.156,
+        "south": 34.651,
+        "east": 33.993,
+        "west": 32.412
       }
     },
     "CZ": {
       "name": "Czechia",
       "continent": "Europe",
-      "count": 49,
-      "mapSizeM": 423289,
+      "count": 392,
+      "mapSizeM": 471225,
       "bounds": {
-        "north": 50.792,
+        "north": 50.911,
         "south": 48.725,
-        "east": 18.239,
-        "west": 12.374
+        "east": 18.753,
+        "west": 12.24
       }
     },
     "DK": {
       "name": "Denmark",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 323744,
+      "count": 251,
+      "mapSizeM": 453393,
       "bounds": {
-        "north": 57.501,
+        "north": 57.732,
         "south": 54.694,
-        "east": 12.498,
-        "west": 8.359
+        "east": 14.984,
+        "west": 8.193
+      }
+    },
+    "DO": {
+      "name": "Dominican Rep.",
+      "continent": "North America",
+      "count": 190,
+      "mapSizeM": 169427,
+      "bounds": {
+        "north": 19.537,
+        "south": 18.419,
+        "east": -69.6,
+        "west": -70.758
       }
     },
     "EC": {
       "name": "Ecuador",
       "continent": "South America",
-      "count": 127,
-      "mapSizeM": 1693711,
+      "count": 997,
+      "mapSizeM": 1697926,
       "bounds": {
-        "north": 1.061,
-        "south": -4.472,
-        "east": -75.903,
+        "north": 1.282,
+        "south": -4.779,
+        "east": -75.866,
         "west": -91.125
       }
     },
     "EE": {
       "name": "Estonia",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 321779,
+      "count": 251,
+      "mapSizeM": 376968,
       "bounds": {
-        "north": 59.306,
-        "south": 57.597,
-        "east": 27.47,
-        "west": 22.106
+        "north": 59.587,
+        "south": 57.581,
+        "east": 28.109,
+        "west": 21.909
       }
     },
     "SZ": {
       "name": "eSwatini",
       "continent": "Africa",
-      "count": 40,
-      "mapSizeM": 163455,
+      "count": 251,
+      "mapSizeM": 168661,
       "bounds": {
-        "north": -25.85,
+        "north": -25.79,
         "south": -27.264,
         "east": 32.007,
-        "west": 30.804
+        "west": 30.798
+      }
+    },
+    "ET": {
+      "name": "Ethiopia",
+      "continent": "Africa",
+      "count": 1,
+      "mapSizeM": 0,
+      "bounds": {
+        "north": 8.673,
+        "south": 8.673,
+        "east": 38.218,
+        "west": 38.218
       }
     },
     "FO": {
       "name": "Faeroe Is.",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 88242,
+      "count": 251,
+      "mapSizeM": 91905,
       "bounds": {
-        "north": 62.295,
-        "south": 61.51,
+        "north": 62.301,
+        "south": 61.483,
         "east": -6.507,
-        "west": -7.298
+        "west": -7.369
       }
     },
     "FI": {
       "name": "Finland",
       "continent": "Europe",
-      "count": 61,
-      "mapSizeM": 992115,
+      "count": 491,
+      "mapSizeM": 1073215,
       "bounds": {
         "north": 69.507,
-        "south": 60.815,
-        "east": 30.544,
-        "west": 22.143
+        "south": 59.989,
+        "east": 31.122,
+        "west": 21.399
       }
     },
     "PF": {
       "name": "Fr. Polynesia",
       "continent": "Oceania",
-      "count": 40,
-      "mapSizeM": 260251,
+      "count": 242,
+      "mapSizeM": 265688,
       "bounds": {
-        "north": -16.777,
-        "south": -17.774,
-        "east": -149.225,
-        "west": -151.479
+        "north": -16.769,
+        "south": -17.824,
+        "east": -149.177,
+        "west": -151.481
       }
     },
     "FR": {
       "name": "France",
       "continent": "Europe",
-      "count": 158,
-      "mapSizeM": 9752585,
+      "count": 1266,
+      "mapSizeM": 9783614,
       "bounds": {
-        "north": 50.376,
-        "south": -21.15,
-        "east": 55.437,
-        "west": -4.491
+        "north": 51.037,
+        "south": -21.266,
+        "east": 55.637,
+        "west": -4.518
       }
     },
     "GM": {
       "name": "Gambia",
       "continent": "Africa",
-      "count": 19,
+      "count": 33,
       "mapSizeM": 239395,
       "bounds": {
         "north": 13.593,
@@ -533,79 +605,91 @@
     "GE": {
       "name": "Georgia",
       "continent": "Asia",
-      "count": 54,
-      "mapSizeM": 418929,
+      "count": 428,
+      "mapSizeM": 583697,
       "bounds": {
-        "north": 43.054,
+        "north": 43.437,
         "south": 41.235,
         "east": 46.491,
-        "west": 41.678
+        "west": 40.006
       }
     },
     "DE": {
       "name": "Germany",
       "continent": "Europe",
-      "count": 100,
-      "mapSizeM": 796478,
+      "count": 800,
+      "mapSizeM": 847044,
       "bounds": {
         "north": 54.809,
-        "south": 47.808,
-        "east": 14.579,
-        "west": 6.301
+        "south": 47.603,
+        "east": 14.805,
+        "west": 5.967
       }
     },
     "GH": {
       "name": "Ghana",
       "continent": "Africa",
-      "count": 122,
-      "mapSizeM": 722559,
+      "count": 975,
+      "mapSizeM": 736912,
       "bounds": {
-        "north": 11.061,
-        "south": 4.895,
-        "east": 0.882,
-        "west": -2.849
+        "north": 11.094,
+        "south": 4.858,
+        "east": 1.125,
+        "west": -2.942
       }
     },
     "GR": {
       "name": "Greece",
       "continent": "Europe",
-      "count": 77,
-      "mapSizeM": 813005,
+      "count": 614,
+      "mapSizeM": 826317,
       "bounds": {
         "north": 41.601,
-        "south": 35.005,
-        "east": 27.788,
+        "south": 34.949,
+        "east": 28.225,
         "west": 19.838
+      }
+    },
+    "GL": {
+      "name": "Greenland",
+      "continent": "North America",
+      "count": 1172,
+      "mapSizeM": 934394,
+      "bounds": {
+        "north": 68.826,
+        "south": 60.71,
+        "east": -46.021,
+        "west": -51.689
       }
     },
     "GU": {
       "name": "Guam",
       "continent": "Oceania",
-      "count": 40,
-      "mapSizeM": 36385,
+      "count": 251,
+      "mapSizeM": 40982,
       "bounds": {
         "north": 13.619,
-        "south": 13.319,
-        "east": 144.895,
-        "west": 144.655
+        "south": 13.264,
+        "east": 144.899,
+        "west": 144.651
       }
     },
     "GT": {
       "name": "Guatemala",
       "continent": "North America",
-      "count": 81,
-      "mapSizeM": 403109,
+      "count": 624,
+      "mapSizeM": 422121,
       "bounds": {
-        "north": 17.232,
+        "north": 17.273,
         "south": 13.842,
-        "east": -88.481,
+        "east": -88.425,
         "west": -92.193
       }
     },
     "GW": {
       "name": "Guinea-Bissau",
       "continent": "Africa",
-      "count": 6,
+      "count": 9,
       "mapSizeM": 126899,
       "bounds": {
         "north": 12.517,
@@ -614,97 +698,121 @@
         "west": -16.679
       }
     },
+    "GY": {
+      "name": "Guyana",
+      "continent": "South America",
+      "count": 3,
+      "mapSizeM": 1935,
+      "bounds": {
+        "north": 3.375,
+        "south": 3.359,
+        "east": -59.819,
+        "west": -59.827
+      }
+    },
     "HK": {
       "name": "Hong Kong",
       "continent": "Asia",
-      "count": 40,
-      "mapSizeM": 49156,
+      "count": 247,
+      "mapSizeM": 51059,
       "bounds": {
-        "north": 22.531,
+        "north": 22.558,
         "south": 22.208,
         "east": 114.319,
-        "west": 113.89
+        "west": 113.867
       }
     },
     "HU": {
       "name": "Hungary",
       "continent": "Europe",
-      "count": 57,
-      "mapSizeM": 467481,
+      "count": 455,
+      "mapSizeM": 484339,
       "bounds": {
-        "north": 48.274,
-        "south": 45.927,
-        "east": 22.373,
-        "west": 16.417
+        "north": 48.389,
+        "south": 45.819,
+        "east": 22.566,
+        "west": 16.273
       }
     },
     "IS": {
       "name": "Iceland",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 482390,
+      "count": 297,
+      "mapSizeM": 487577,
       "bounds": {
-        "north": 66.265,
-        "south": 63.586,
+        "north": 66.337,
+        "south": 63.523,
         "east": -13.68,
-        "west": -23.92
+        "west": -24.252
       }
     },
     "IN": {
       "name": "India",
       "continent": "Asia",
-      "count": 424,
-      "mapSizeM": 2876355,
+      "count": 3353,
+      "mapSizeM": 2997674,
       "bounds": {
-        "north": 32.277,
-        "south": 9.205,
-        "east": 95.855,
-        "west": 69.023
+        "north": 32.978,
+        "south": 8.171,
+        "east": 96.235,
+        "west": 68.561
       }
     },
     "ID": {
       "name": "Indonesia",
       "continent": "Asia",
-      "count": 342,
-      "mapSizeM": 3403080,
+      "count": 2690,
+      "mapSizeM": 4583955,
       "bounds": {
-        "north": 4.171,
+        "north": 5.059,
         "south": -10.853,
-        "east": 127.977,
-        "west": 97.363
+        "east": 137.441,
+        "west": 97.313
+      }
+    },
+    "IR": {
+      "name": "Iran",
+      "continent": "Asia",
+      "count": 5,
+      "mapSizeM": 379035,
+      "bounds": {
+        "north": 29.459,
+        "south": 26.564,
+        "east": 56.28,
+        "west": 53.214
       }
     },
     "IE": {
       "name": "Ireland",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 379904,
+      "count": 323,
+      "mapSizeM": 418608,
       "bounds": {
-        "north": 54.852,
+        "north": 55.124,
         "south": 51.531,
-        "east": -6.266,
-        "west": -10.089
+        "east": -6.043,
+        "west": -10.272
       }
     },
     "IM": {
       "name": "Isle of Man",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 37056,
+      "count": 251,
+      "mapSizeM": 39954,
       "bounds": {
         "north": 54.384,
-        "south": 54.078,
-        "east": -4.391,
-        "west": -4.753
+        "south": 54.072,
+        "east": -4.382,
+        "west": -4.76
       }
     },
     "IL": {
       "name": "Israel",
       "continent": "Asia",
-      "count": 40,
-      "mapSizeM": 390347,
+      "count": 271,
+      "mapSizeM": 393455,
       "bounds": {
-        "north": 33.227,
+        "north": 33.232,
         "south": 29.752,
         "east": 35.782,
         "west": 34.571
@@ -713,155 +821,155 @@
     "IT": {
       "name": "Italy",
       "continent": "Europe",
-      "count": 111,
-      "mapSizeM": 1143350,
+      "count": 886,
+      "mapSizeM": 1169128,
       "bounds": {
-        "north": 46.622,
-        "south": 36.94,
-        "east": 17.316,
+        "north": 46.791,
+        "south": 36.92,
+        "east": 18.42,
         "west": 6.909
       }
     },
     "JP": {
       "name": "Japan",
       "continent": "Asia",
-      "count": 131,
-      "mapSizeM": 2261238,
+      "count": 1052,
+      "mapSizeM": 2788792,
       "bounds": {
         "north": 45.164,
-        "south": 28.155,
+        "south": 24.756,
         "east": 145.773,
-        "west": 129.235
+        "west": 125.404
       }
     },
     "JE": {
       "name": "Jersey",
       "continent": "Europe",
-      "count": 7,
-      "mapSizeM": 5697,
+      "count": 166,
+      "mapSizeM": 15866,
       "bounds": {
-        "north": 49.251,
-        "south": 49.201,
-        "east": -2.208,
-        "west": -2.221
+        "north": 49.257,
+        "south": 49.178,
+        "east": -2.021,
+        "west": -2.229
       }
     },
     "JO": {
       "name": "Jordan",
       "continent": "Asia",
-      "count": 68,
-      "mapSizeM": 327726,
+      "count": 434,
+      "mapSizeM": 338357,
       "bounds": {
         "north": 32.329,
-        "south": 29.571,
-        "east": 36.572,
-        "west": 35.032
+        "south": 29.518,
+        "east": 36.827,
+        "west": 35.005
       }
     },
     "KZ": {
       "name": "Kazakhstan",
       "continent": "Asia",
-      "count": 300,
-      "mapSizeM": 2532767,
+      "count": 2177,
+      "mapSizeM": 2562417,
       "bounds": {
         "north": 55.195,
-        "south": 41.214,
-        "east": 83.473,
-        "west": 50.766
+        "south": 40.757,
+        "east": 83.536,
+        "west": 50.264
       }
     },
     "KE": {
       "name": "Kenya",
       "continent": "Africa",
-      "count": 193,
-      "mapSizeM": 1072422,
+      "count": 1522,
+      "mapSizeM": 1135549,
       "bounds": {
         "north": 4.339,
-        "south": -4.474,
+        "south": -4.572,
         "east": 40.914,
-        "west": 34.082
+        "west": 33.985
       }
     },
     "XK": {
       "name": "Kosovo",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 118577,
+      "count": 251,
+      "mapSizeM": 131097,
       "bounds": {
-        "north": 43.003,
-        "south": 42.114,
-        "east": 21.641,
-        "west": 20.204
+        "north": 43.058,
+        "south": 42.005,
+        "east": 21.726,
+        "west": 20.124
       }
     },
     "KG": {
       "name": "Kyrgyzstan",
       "continent": "Asia",
-      "count": 92,
-      "mapSizeM": 536255,
+      "count": 658,
+      "mapSizeM": 541165,
       "bounds": {
         "north": 43.084,
-        "south": 40.502,
-        "east": 78.363,
+        "south": 40.48,
+        "east": 78.411,
         "west": 71.961
       }
     },
     "LA": {
       "name": "Laos",
       "continent": "Asia",
-      "count": 79,
-      "mapSizeM": 879863,
+      "count": 521,
+      "mapSizeM": 939667,
       "bounds": {
         "north": 20.398,
-        "south": 14.131,
+        "south": 13.929,
         "east": 106.982,
-        "west": 100.27
+        "west": 100.177
       }
     },
     "LV": {
       "name": "Latvia",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 390699,
+      "count": 251,
+      "mapSizeM": 408646,
       "bounds": {
-        "north": 57.75,
-        "south": 55.844,
-        "east": 27.656,
-        "west": 21.352
+        "north": 57.89,
+        "south": 55.785,
+        "east": 27.729,
+        "west": 21.061
       }
     },
     "LB": {
       "name": "Lebanon",
       "continent": "Asia",
-      "count": 40,
-      "mapSizeM": 162914,
+      "count": 211,
+      "mapSizeM": 167641,
       "bounds": {
-        "north": 34.572,
+        "north": 34.573,
         "south": 33.323,
-        "east": 36.247,
+        "east": 36.281,
         "west": 35.264
       }
     },
     "LS": {
       "name": "Lesotho",
       "continent": "Africa",
-      "count": 40,
-      "mapSizeM": 200484,
+      "count": 320,
+      "mapSizeM": 208790,
       "bounds": {
-        "north": -28.821,
-        "south": -30.371,
-        "east": 29.132,
-        "west": 27.259
+        "north": -28.705,
+        "south": -30.401,
+        "east": 29.161,
+        "west": 27.153
       }
     },
     "LI": {
       "name": "Liechtenstein",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 8304,
+      "count": 127,
+      "mapSizeM": 21240,
       "bounds": {
-        "north": 47.153,
-        "south": 47.079,
+        "north": 47.253,
+        "south": 47.063,
         "east": 9.563,
         "west": 9.481
       }
@@ -869,97 +977,145 @@
     "LT": {
       "name": "Lithuania",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 309463,
+      "count": 280,
+      "mapSizeM": 351167,
       "bounds": {
-        "north": 56.33,
-        "south": 54.205,
-        "east": 26.167,
-        "west": 21.359
+        "north": 56.386,
+        "south": 54.017,
+        "east": 26.54,
+        "west": 21.081
       }
     },
     "LU": {
       "name": "Luxembourg",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 65875,
+      "count": 251,
+      "mapSizeM": 75871,
       "bounds": {
-        "north": 50.069,
-        "south": 49.509,
-        "east": 6.398,
-        "west": 5.832
+        "north": 50.145,
+        "south": 49.464,
+        "east": 6.442,
+        "west": 5.731
       }
     },
     "MY": {
       "name": "Malaysia",
       "continent": "Asia",
-      "count": 143,
-      "mapSizeM": 2086069,
+      "count": 1132,
+      "mapSizeM": 2152020,
       "bounds": {
-        "north": 6.846,
+        "north": 6.902,
         "south": 1.074,
-        "east": 119.112,
-        "west": 100.271
+        "east": 119.141,
+        "west": 99.725
+      }
+    },
+    "ML": {
+      "name": "Mali",
+      "continent": "Africa",
+      "count": 11,
+      "mapSizeM": 1319667,
+      "bounds": {
+        "north": 16.776,
+        "south": 12.646,
+        "east": -0.045,
+        "west": -12.207
       }
     },
     "MT": {
       "name": "Malta",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 38566,
+      "count": 225,
+      "mapSizeM": 39951,
       "bounds": {
         "north": 36.067,
         "south": 35.821,
         "east": 14.561,
-        "west": 14.218
+        "west": 14.204
+      }
+    },
+    "MR": {
+      "name": "Mauritania",
+      "continent": "Africa",
+      "count": 272,
+      "mapSizeM": 368598,
+      "bounds": {
+        "north": 16.504,
+        "south": 15.554,
+        "east": -13.102,
+        "west": -16.512
       }
     },
     "MX": {
       "name": "Mexico",
       "continent": "North America",
-      "count": 333,
-      "mapSizeM": 3102389,
+      "count": 2649,
+      "mapSizeM": 3303399,
       "bounds": {
-        "north": 32.134,
+        "north": 32.658,
         "south": 14.634,
-        "east": -86.802,
-        "west": -116.014
+        "east": -86.793,
+        "west": -117.09
       }
     },
     "MD": {
       "name": "Moldova",
       "continent": "Europe",
-      "count": 10,
+      "count": 13,
       "mapSizeM": 285081,
       "bounds": {
         "north": 48.439,
         "south": 45.915,
-        "east": 28.118,
+        "east": 28.265,
         "west": 26.945
+      }
+    },
+    "MC": {
+      "name": "Monaco",
+      "continent": "Europe",
+      "count": 172,
+      "mapSizeM": 4036,
+      "bounds": {
+        "north": 43.759,
+        "south": 43.74,
+        "east": 7.438,
+        "west": 7.39
       }
     },
     "MN": {
       "name": "Mongolia",
       "continent": "Asia",
-      "count": 235,
-      "mapSizeM": 2242711,
+      "count": 1789,
+      "mapSizeM": 2284272,
       "bounds": {
-        "north": 51.3,
-        "south": 43.497,
-        "east": 118.921,
+        "north": 51.355,
+        "south": 43.496,
+        "east": 119.275,
         "west": 88.587
       }
     },
     "ME": {
       "name": "Montenegro",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 123171,
+      "count": 251,
+      "mapSizeM": 159075,
       "bounds": {
-        "north": 43.496,
-        "south": 42.44,
-        "east": 20.116,
-        "west": 18.621
+        "north": 43.502,
+        "south": 42.073,
+        "east": 20.267,
+        "west": 18.505
+      }
+    },
+    "MA": {
+      "name": "Morocco",
+      "continent": "Africa",
+      "count": 3,
+      "mapSizeM": 225837,
+      "bounds": {
+        "north": 35.879,
+        "south": 35.271,
+        "east": -2.946,
+        "west": -5.328
       }
     },
     "MZ": {
@@ -977,202 +1133,214 @@
     "MM": {
       "name": "Myanmar",
       "continent": "Asia",
-      "count": 18,
+      "count": 24,
       "mapSizeM": 877064,
       "bounds": {
         "north": 21.969,
         "south": 16.279,
-        "east": 99.976,
+        "east": 100.07,
         "west": 92.196
       }
     },
     "CYN": {
       "name": "N. Cyprus",
       "continent": "Asia",
-      "count": 3,
-      "mapSizeM": 41170,
+      "count": 87,
+      "mapSizeM": 85516,
       "bounds": {
-        "north": 35.165,
+        "north": 35.195,
         "south": 35.035,
-        "east": 33.572,
-        "west": 33.149
+        "east": 33.968,
+        "west": 33.034
       }
     },
     "MP": {
       "name": "N. Mariana Is.",
       "continent": "Oceania",
-      "count": 40,
-      "mapSizeM": 132801,
+      "count": 251,
+      "mapSizeM": 137917,
       "bounds": {
-        "north": 15.248,
+        "north": 15.257,
         "south": 14.171,
-        "east": 145.792,
-        "west": 145.258
+        "east": 145.808,
+        "west": 145.188
       }
     },
     "NA": {
       "name": "Namibia",
       "continent": "Africa",
-      "count": 218,
-      "mapSizeM": 1424726,
+      "count": 1719,
+      "mapSizeM": 1493429,
       "bounds": {
-        "north": -17.404,
-        "south": -28.642,
-        "east": 24.119,
-        "west": 13.378
+        "north": -17.392,
+        "south": -28.721,
+        "east": 25.159,
+        "west": 13.193
       }
     },
     "NP": {
       "name": "Nepal",
       "continent": "Asia",
-      "count": 89,
-      "mapSizeM": 808660,
+      "count": 709,
+      "mapSizeM": 828170,
       "bounds": {
-        "north": 29.38,
-        "south": 26.514,
-        "east": 88.022,
-        "west": 80.284
+        "north": 29.695,
+        "south": 26.363,
+        "east": 88.066,
+        "west": 80.08
       }
     },
     "NL": {
       "name": "Netherlands",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 312526,
+      "count": 251,
+      "mapSizeM": 326698,
       "bounds": {
-        "north": 53.318,
+        "north": 53.395,
         "south": 50.809,
-        "east": 6.953,
-        "west": 3.519
+        "east": 7.102,
+        "west": 3.408
       }
     },
     "NZ": {
       "name": "New Zealand",
       "continent": "Oceania",
-      "count": 106,
-      "mapSizeM": 1348619,
+      "count": 848,
+      "mapSizeM": 1435481,
       "bounds": {
-        "north": -35.041,
-        "south": -46.539,
+        "north": -34.439,
+        "south": -46.836,
         "east": 178.336,
-        "west": 167.999
+        "west": 167.695
+      }
+    },
+    "NI": {
+      "name": "Nicaragua",
+      "continent": "North America",
+      "count": 2,
+      "mapSizeM": 353883,
+      "bounds": {
+        "north": 13.918,
+        "south": 11.043,
+        "east": -84.731,
+        "west": -86.13
       }
     },
     "NG": {
       "name": "Nigeria",
       "continent": "Africa",
-      "count": 237,
-      "mapSizeM": 1192068,
+      "count": 1847,
+      "mapSizeM": 1226125,
       "bounds": {
-        "north": 12.728,
+        "north": 13.083,
         "south": 4.607,
-        "east": 13.085,
-        "west": 2.869
+        "east": 13.28,
+        "west": 2.75
       }
     },
     "MK": {
       "name": "North Macedonia",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 195095,
+      "count": 263,
+      "mapSizeM": 203003,
       "bounds": {
-        "north": 42.117,
-        "south": 41.032,
+        "north": 42.263,
+        "south": 40.921,
         "east": 22.867,
-        "west": 20.556
+        "west": 20.47
       }
     },
     "NO": {
       "name": "Norway",
       "continent": "Europe",
-      "count": 115,
-      "mapSizeM": 2392831,
+      "count": 900,
+      "mapSizeM": 2416833,
       "bounds": {
         "north": 79.713,
-        "south": 58.227,
-        "east": 27.008,
-        "west": 5.259
+        "south": 58.026,
+        "east": 29.996,
+        "west": 4.995
       }
     },
     "OM": {
       "name": "Oman",
       "continent": "Asia",
-      "count": 135,
-      "mapSizeM": 1079000,
+      "count": 1080,
+      "mapSizeM": 1096392,
       "bounds": {
-        "north": 26.148,
-        "south": 16.818,
-        "east": 59.696,
+        "north": 26.198,
+        "south": 16.731,
+        "east": 59.803,
         "west": 52.522
       }
     },
     "PS": {
       "name": "Palestine",
       "continent": "Asia",
-      "count": 40,
-      "mapSizeM": 126896,
+      "count": 249,
+      "mapSizeM": 130311,
       "bounds": {
         "north": 32.508,
-        "south": 31.369,
+        "south": 31.357,
         "east": 35.55,
-        "west": 35.001
+        "west": 34.905
       }
     },
     "PA": {
       "name": "Panama",
       "continent": "North America",
-      "count": 68,
-      "mapSizeM": 557124,
+      "count": 536,
+      "mapSizeM": 571572,
       "bounds": {
         "north": 9.56,
-        "south": 7.446,
-        "east": -77.843,
+        "south": 7.319,
+        "east": -77.7,
         "west": -82.879
       }
     },
     "PY": {
       "name": "Paraguay",
       "continent": "South America",
-      "count": 151,
-      "mapSizeM": 971247,
+      "count": 1187,
+      "mapSizeM": 984421,
       "bounds": {
         "north": -20.352,
         "south": -27.405,
-        "east": -54.378,
+        "east": -54.297,
         "west": -61.982
       }
     },
     "PE": {
       "name": "Peru",
       "continent": "South America",
-      "count": 283,
-      "mapSizeM": 1950797,
+      "count": 2218,
+      "mapSizeM": 1975762,
       "bounds": {
-        "north": -3.783,
-        "south": -18.114,
+        "north": -3.49,
+        "south": -18.334,
         "east": -68.974,
-        "west": -81.171
+        "west": -81.306
       }
     },
     "PH": {
       "name": "Philippines",
       "continent": "Asia",
-      "count": 133,
-      "mapSizeM": 1398781,
+      "count": 1063,
+      "mapSizeM": 1506180,
       "bounds": {
-        "north": 18.26,
-        "south": 6.24,
+        "north": 18.571,
+        "south": 5.722,
         "east": 126.571,
-        "west": 119.941
+        "west": 117.758
       }
     },
     "PN": {
       "name": "Pitcairn Is.",
       "continent": "Oceania",
-      "count": 40,
+      "count": 77,
       "mapSizeM": 4054,
       "bounds": {
-        "north": -24.338,
+        "north": -24.337,
         "south": -24.354,
         "east": -128.305,
         "west": -128.341
@@ -1181,35 +1349,35 @@
     "PL": {
       "name": "Poland",
       "continent": "Europe",
-      "count": 90,
-      "mapSizeM": 697609,
+      "count": 720,
+      "mapSizeM": 720938,
       "bounds": {
-        "north": 54.311,
-        "south": 49.568,
-        "east": 23.531,
+        "north": 54.623,
+        "south": 49.302,
+        "east": 23.869,
         "west": 14.335
       }
     },
     "PT": {
       "name": "Portugal",
       "continent": "Europe",
-      "count": 64,
-      "mapSizeM": 1657874,
+      "count": 511,
+      "mapSizeM": 1805367,
       "bounds": {
-        "north": 41.718,
-        "south": 37.229,
-        "east": -6.801,
-        "west": -25.54
+        "north": 41.948,
+        "south": 32.658,
+        "east": -6.358,
+        "west": -27.306
       }
     },
     "PR": {
       "name": "Puerto Rico",
       "continent": "North America",
-      "count": 40,
+      "count": 245,
       "mapSizeM": 168536,
       "bounds": {
-        "north": 18.469,
-        "south": 17.976,
+        "north": 18.495,
+        "south": 17.968,
         "east": -65.643,
         "west": -67.239
       }
@@ -1217,187 +1385,187 @@
     "QA": {
       "name": "Qatar",
       "continent": "Asia",
-      "count": 40,
-      "mapSizeM": 147911,
+      "count": 251,
+      "mapSizeM": 150661,
       "bounds": {
-        "north": 26.09,
+        "north": 26.116,
         "south": 24.761,
-        "east": 51.582,
-        "west": 50.879
+        "east": 51.59,
+        "west": 50.859
       }
     },
     "RO": {
       "name": "Romania",
       "continent": "Europe",
-      "count": 93,
-      "mapSizeM": 650318,
+      "count": 746,
+      "mapSizeM": 694352,
       "bounds": {
-        "north": 48.069,
-        "south": 43.76,
-        "east": 29.208,
-        "west": 20.904
+        "north": 48.205,
+        "south": 43.743,
+        "east": 29.373,
+        "west": 20.604
       }
     },
     "RU": {
       "name": "Russia",
       "continent": "Europe",
-      "count": 181,
-      "mapSizeM": 7576040,
+      "count": 1351,
+      "mapSizeM": 7795874,
       "bounds": {
         "north": 69.446,
-        "south": 43.247,
-        "east": 143.383,
-        "west": 20.145
+        "south": 42.725,
+        "east": 158.676,
+        "west": 19.949
       }
     },
     "RW": {
       "name": "Rwanda",
       "continent": "Africa",
-      "count": 40,
-      "mapSizeM": 207253,
+      "count": 294,
+      "mapSizeM": 221338,
       "bounds": {
-        "north": -1.313,
-        "south": -2.648,
-        "east": 30.627,
-        "west": 28.917
+        "north": -1.218,
+        "south": -2.65,
+        "east": 30.747,
+        "west": 28.908
       }
     },
     "SM": {
       "name": "San Marino",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 9314,
+      "count": 251,
+      "mapSizeM": 11031,
       "bounds": {
-        "north": 43.97,
-        "south": 43.902,
-        "east": 12.506,
-        "west": 12.408
+        "north": 43.987,
+        "south": 43.898,
+        "east": 12.508,
+        "west": 12.406
       }
     },
     "ST": {
       "name": "São Tomé and Principe",
       "continent": "Africa",
-      "count": 39,
-      "mapSizeM": 194005,
+      "count": 248,
+      "mapSizeM": 202406,
       "bounds": {
-        "north": 1.621,
-        "south": 0.077,
-        "east": 7.378,
-        "west": 6.498
+        "north": 1.645,
+        "south": 0.05,
+        "east": 7.431,
+        "west": 6.48
       }
     },
     "SN": {
       "name": "Senegal",
       "continent": "Africa",
-      "count": 109,
-      "mapSizeM": 642754,
+      "count": 864,
+      "mapSizeM": 656217,
       "bounds": {
-        "north": 16.511,
+        "north": 16.643,
         "south": 12.451,
         "east": -11.647,
-        "west": -17.371
+        "west": -17.501
       }
     },
     "RS": {
       "name": "Serbia",
       "continent": "Europe",
-      "count": 55,
-      "mapSizeM": 435440,
+      "count": 440,
+      "mapSizeM": 452451,
       "bounds": {
-        "north": 45.94,
+        "north": 46.152,
         "south": 42.347,
-        "east": 22.438,
-        "west": 19.085
+        "east": 22.846,
+        "west": 18.925
       }
     },
     "SG": {
       "name": "Singapore",
       "continent": "Asia",
-      "count": 40,
-      "mapSizeM": 33997,
+      "count": 162,
+      "mapSizeM": 37601,
       "bounds": {
-        "north": 1.436,
+        "north": 1.44,
         "south": 1.27,
-        "east": 103.956,
+        "east": 103.991,
         "west": 103.654
       }
     },
     "SK": {
       "name": "Slovakia",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 369465,
+      "count": 317,
+      "mapSizeM": 401222,
       "bounds": {
-        "north": 49.434,
-        "south": 47.963,
+        "north": 49.501,
+        "south": 47.766,
         "east": 22.357,
-        "west": 17.321
+        "west": 16.993
       }
     },
     "SI": {
       "name": "Slovenia",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 210993,
+      "count": 251,
+      "mapSizeM": 251325,
       "bounds": {
-        "north": 46.844,
-        "south": 45.583,
+        "north": 46.853,
+        "south": 45.505,
         "east": 16.375,
-        "west": 13.863
+        "west": 13.574
       }
     },
     "ZA": {
       "name": "South Africa",
       "continent": "Africa",
-      "count": 256,
-      "mapSizeM": 1656744,
+      "count": 2045,
+      "mapSizeM": 1791255,
       "bounds": {
-        "north": -22.422,
-        "south": -34.133,
-        "east": 32.36,
-        "west": 16.986
+        "north": -22.224,
+        "south": -34.446,
+        "east": 32.738,
+        "west": 16.871
       }
     },
     "KR": {
       "name": "South Korea",
       "continent": "Asia",
-      "count": 68,
-      "mapSizeM": 568684,
+      "count": 541,
+      "mapSizeM": 612429,
       "bounds": {
-        "north": 38.336,
-        "south": 33.386,
-        "east": 129.461,
-        "west": 126.717
+        "north": 38.465,
+        "south": 33.233,
+        "east": 129.51,
+        "west": 126.262
       }
     },
     "ES": {
       "name": "Spain",
       "continent": "Europe",
-      "count": 149,
-      "mapSizeM": 2076130,
+      "count": 1194,
+      "mapSizeM": 2419452,
       "bounds": {
-        "north": 43.59,
-        "south": 28.628,
-        "east": 3.186,
-        "west": -13.929
+        "north": 43.696,
+        "south": 27.768,
+        "east": 4.259,
+        "west": -17.895
       }
     },
     "LK": {
       "name": "Sri Lanka",
       "continent": "Asia",
-      "count": 64,
-      "mapSizeM": 378585,
+      "count": 512,
+      "mapSizeM": 429311,
       "bounds": {
-        "north": 9.365,
-        "south": 6.004,
-        "east": 81.798,
-        "west": 79.791
+        "north": 9.795,
+        "south": 5.953,
+        "east": 81.848,
+        "west": 79.742
       }
     },
     "KN": {
       "name": "St. Kitts and Nevis",
       "continent": "North America",
-      "count": 7,
+      "count": 10,
       "mapSizeM": 6137,
       "bounds": {
         "north": 17.291,
@@ -1409,7 +1577,7 @@
     "PM": {
       "name": "St. Pierre and Miquelon",
       "continent": "North America",
-      "count": 14,
+      "count": 22,
       "mapSizeM": 3409,
       "bounds": {
         "north": 46.801,
@@ -1421,31 +1589,31 @@
     "SE": {
       "name": "Sweden",
       "continent": "Europe",
-      "count": 44,
-      "mapSizeM": 1274891,
+      "count": 357,
+      "mapSizeM": 1523198,
       "bounds": {
-        "north": 67.829,
-        "south": 56.577,
+        "north": 68.681,
+        "south": 55.476,
         "east": 23.169,
-        "west": 12.484
+        "west": 11.815
       }
     },
     "CH": {
       "name": "Switzerland",
       "continent": "Europe",
-      "count": 40,
-      "mapSizeM": 285434,
+      "count": 306,
+      "mapSizeM": 337031,
       "bounds": {
-        "north": 47.596,
-        "south": 46.189,
-        "east": 9.91,
-        "west": 6.177
+        "north": 47.764,
+        "south": 45.871,
+        "east": 10.298,
+        "west": 5.981
       }
     },
     "SY": {
       "name": "Syria",
       "continent": "Asia",
-      "count": 12,
+      "count": 18,
       "mapSizeM": 747439,
       "bounds": {
         "north": 37.283,
@@ -1457,95 +1625,95 @@
     "TW": {
       "name": "Taiwan",
       "continent": "Asia",
-      "count": 45,
-      "mapSizeM": 248284,
+      "count": 363,
+      "mapSizeM": 362371,
       "bounds": {
-        "north": 24.614,
-        "south": 22.442,
-        "east": 121.605,
-        "west": 120.163
+        "north": 25.256,
+        "south": 22.083,
+        "east": 121.79,
+        "west": 120.132
       }
     },
     "TH": {
       "name": "Thailand",
       "continent": "Asia",
-      "count": 176,
-      "mapSizeM": 1598433,
+      "count": 1411,
+      "mapSizeM": 1626129,
       "bounds": {
-        "north": 20.099,
-        "south": 5.794,
-        "east": 105.204,
+        "north": 20.314,
+        "south": 5.773,
+        "east": 105.505,
         "west": 97.749
       }
     },
     "TL": {
       "name": "Timor-Leste",
       "continent": "Asia",
-      "count": 40,
-      "mapSizeM": 56378,
+      "count": 110,
+      "mapSizeM": 58045,
       "bounds": {
-        "north": -8.977,
+        "north": -8.96,
         "south": -9.469,
         "east": 125.173,
-        "west": 124.928
+        "west": 124.924
       }
     },
     "TG": {
       "name": "Togo",
       "continent": "Africa",
-      "count": 42,
-      "mapSizeM": 547763,
+      "count": 129,
+      "mapSizeM": 568143,
       "bounds": {
-        "north": 11.076,
-        "south": 6.253,
-        "east": 1.022,
-        "west": 0.008
+        "north": 11.083,
+        "south": 6.111,
+        "east": 1.199,
+        "west": 0.002
       }
     },
     "TN": {
       "name": "Tunisia",
       "continent": "Africa",
-      "count": 87,
-      "mapSizeM": 430297,
+      "count": 596,
+      "mapSizeM": 489171,
       "bounds": {
-        "north": 37.171,
-        "south": 33.36,
-        "east": 11.048,
+        "north": 37.254,
+        "south": 32.886,
+        "east": 11.102,
         "west": 7.842
       }
     },
     "TR": {
       "name": "Turkey",
       "continent": "Asia",
-      "count": 188,
-      "mapSizeM": 1545963,
+      "count": 1503,
+      "mapSizeM": 1616280,
       "bounds": {
         "north": 41.929,
         "south": 35.908,
-        "east": 44.466,
-        "west": 26.424
+        "east": 44.533,
+        "west": 26.244
       }
     },
     "VI": {
       "name": "U.S. Virgin Is.",
       "continent": "North America",
-      "count": 40,
-      "mapSizeM": 80617,
+      "count": 250,
+      "mapSizeM": 80637,
       "bounds": {
         "north": 18.362,
         "south": 17.702,
         "east": -64.606,
-        "west": -65.002
+        "west": -65.003
       }
     },
     "UG": {
       "name": "Uganda",
       "continent": "Africa",
-      "count": 122,
+      "count": 470,
       "mapSizeM": 633431,
       "bounds": {
         "north": 3.995,
-        "south": -0.692,
+        "south": -0.693,
         "east": 34.526,
         "west": 29.882
       }
@@ -1553,85 +1721,109 @@
     "UA": {
       "name": "Ukraine",
       "continent": "Europe",
-      "count": 134,
-      "mapSizeM": 1142327,
+      "count": 1035,
+      "mapSizeM": 1160291,
       "bounds": {
-        "north": 52.16,
-        "south": 46.866,
-        "east": 37.796,
-        "west": 22.37
+        "north": 52.172,
+        "south": 46.356,
+        "east": 37.903,
+        "west": 22.227
       }
     },
     "AE": {
       "name": "United Arab Emirates",
       "continent": "Asia",
-      "count": 63,
-      "mapSizeM": 380021,
+      "count": 474,
+      "mapSizeM": 411597,
       "bounds": {
-        "north": 25.691,
+        "north": 26.036,
         "south": 23.001,
-        "east": 56.339,
-        "west": 53.731
+        "east": 56.365,
+        "west": 52.589
       }
     },
     "GB": {
       "name": "United Kingdom",
       "continent": "Europe",
-      "count": 72,
-      "mapSizeM": 1101849,
+      "count": 577,
+      "mapSizeM": 1180273,
       "bounds": {
         "north": 60.507,
-        "south": 50.66,
-        "east": 0.847,
-        "west": -7.552
+        "south": 50.124,
+        "east": 1.561,
+        "west": -7.625
       }
     },
     "US": {
       "name": "United States of America",
       "continent": "North America",
-      "count": 600,
-      "mapSizeM": 8295406,
+      "count": 4837,
+      "mapSizeM": 8460907,
       "bounds": {
-        "north": 64.008,
+        "north": 67.165,
         "south": 19.791,
-        "east": -67.833,
-        "west": -155.88
+        "east": -67.551,
+        "west": -159.519
       }
     },
     "UY": {
       "name": "Uruguay",
       "continent": "South America",
-      "count": 95,
-      "mapSizeM": 558145,
+      "count": 763,
+      "mapSizeM": 588645,
       "bounds": {
-        "north": -30.471,
-        "south": -34.751,
-        "east": -53.671,
-        "west": -58.401
+        "north": -30.244,
+        "south": -34.922,
+        "east": -53.37,
+        "west": -58.405
       }
     },
     "VU": {
       "name": "Vanuatu",
       "continent": "Oceania",
-      "count": 24,
-      "mapSizeM": 12766,
+      "count": 40,
+      "mapSizeM": 12823,
       "bounds": {
         "north": -16.246,
         "south": -16.264,
         "east": 168.255,
-        "west": 168.136
+        "west": 168.135
+      }
+    },
+    "VA": {
+      "name": "Vatican",
+      "continent": "Europe",
+      "count": 70,
+      "mapSizeM": 637,
+      "bounds": {
+        "north": 41.903,
+        "south": 41.898,
+        "east": 12.439,
+        "west": 12.432
+      }
+    },
+    "VE": {
+      "name": "Venezuela",
+      "continent": "South America",
+      "count": 7,
+      "mapSizeM": 562122,
+      "bounds": {
+        "north": 10.479,
+        "south": 7.092,
+        "east": -66.951,
+        "west": -70.76
       }
     },
     "VN": {
       "name": "Vietnam",
       "continent": "Asia",
-      "count": 140,
-      "mapSizeM": 1566627,
+      "count": 1120,
+      "mapSizeM": 1600487,
       "bounds": {
-        "north": 22.784,
+        "north": 23.118,
         "south": 8.727,
-        "east": 109.147,
-        "west": 102.919
+        "east": 109.364,
+        "west": 102.797
       }
     }
   }

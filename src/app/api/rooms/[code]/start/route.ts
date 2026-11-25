@@ -5,6 +5,7 @@ import { rpcError } from "@/lib/game";
 import { filterPool } from "@/lib/locations";
 import { filterLabel, mapSizeFor } from "@/lib/regions";
 import { planLocations } from "@/lib/selection";
+import { isLocationMix } from "@/lib/rules";
 
 export const POST = withErrorHandling(async (request: Request, { params }: { params: Promise<{ code: string }> }) => {
   const { code } = await params;
@@ -14,7 +15,7 @@ export const POST = withErrorHandling(async (request: Request, { params }: { par
   const supabase = supabaseAdmin();
   const { data: room } = await supabase
     .from("rooms")
-    .select("location_filter, round_count")
+    .select("location_filter, round_count, location_mix")
     .eq("code", roomCode)
     .maybeSingle();
   if (!room) return NextResponse.json({ error: "Room not found" }, { status: 404 });
@@ -29,7 +30,8 @@ export const POST = withErrorHandling(async (request: Request, { params }: { par
   }
 
   // Every round's location is planned now, for variety across the game.
-  const locations = planLocations(filter, room.round_count).map((l) => ({
+  const mix = isLocationMix(room.location_mix) ? room.location_mix : "balanced";
+  const locations = planLocations(filter, room.round_count, mix).map((l) => ({
     lat: l.lat,
     lng: l.lng,
     panoId: l.panoId,
